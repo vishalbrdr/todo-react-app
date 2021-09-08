@@ -1,13 +1,299 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+:root {
+  --Bright-Blue: hsl(220, 98%, 61%);
+  /* --Check Background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%); */
+
+  /* ### Neutral */
+
+  /* ### Light Theme */
+
+  --Very-Light-Gray: hsl(0, 0%, 98%);
+  --Very-Light-Grayish-Blue: hsl(236, 33%, 92%);
+  --Light-Grayish-Blue: hsl(233, 11%, 84%);
+  --Dark-Grayish-Blue-L: hsl(236, 9%, 61%);
+  --Very-Dark-Grayish-Blue-L: hsl(235, 19%, 35%);
+
+  /* ### Dark Theme */
+
+  --Very-Dark-Blue: hsl(235, 21%, 11%);
+  --Very-Dark-Desaturated-Blue: hsl(235, 24%, 19%);
+  --Light-Grayish-Blue-D: hsl(234, 39%, 85%);
+  --Light-Grayish-Blue-hover: hsl(236, 33%, 92%);
+  --Dark-Grayish-Blue: hsl(234, 11%, 52%);
+  --Very-Dark-Grayish-Blue: hsl(233, 14%, 35%);
+  --Very-Dark-Grayish-Blue-2: hsl(237, 14%, 26%);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: inherit;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  color: inherit;
+}
+html {
+  font-size: 62.5%;
+}
+body.dark {
+  --bg-body: var(--Very-Dark-Blue);
+  --bg-img-desktop: url(./bg-desktop-dark.jpg);
+  --bg-img-mobile: url(./bg-mobile-dark.jpg);
+  --bg-app: var(--Very-Dark-Desaturated-Blue);
+  --color-body: var(--Light-Grayish-Blue-D);
+  --border-clr: var(--Very-Dark-Grayish-Blue-2);
+  --utilities-clr: var(--Very-Dark-Grayish-Blue);
+  --nav-hover: var(--Light-Grayish-Blue-hover);
+  --box-shadow: var(--Very-Dark-Grayish-Blue-L);
+}
+body.light {
+  --bg-body: var(--Very-Light-Grayish-Blue);
+  --bg-app: var(--Very-Light-Gray);
+  --bg-img-desktop: url(./bg-desktop-light.jpg);
+  --bg-img-mobile: url(./bg-mobile-light.jpg);
+  --color-body: var(--Very-Dark-Grayish-Blue-L);
+  --border-clr: var(--Light-Grayish-Blue);
+  --utilities-clr: var(--Dark-Grayish-Blue-L);
+  --nav-hover: var(--Very-Dark-Grayish-Blue-L);
+  --box-shadow: var(--Very-Dark-Grayish-Blue-L);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  font-family: "Josefin Sans", sans-serif;
+  background: var(--bg-img-desktop), var(--bg-body);
+  background-repeat: no-repeat;
+  background-size: auto 40vh;
+  color: var(--color-body);
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  transition: all 300ms ease-in-out;
+}
+.App {
+  margin-top: 10vh;
+  min-width: 50rem;
+  max-width: 90vw;
+  min-height: max-content;
+  transition: min-height 300ms ease;
+}
+
+.App .main {
+  font-size: 1.8rem;
+  margin-top: 5vh;
+}
+.App .main .lists {
+  background-color: var(--bg-app);
+  margin-top: 5vh;
+  border-radius: 0.4rem;
+  box-shadow: 0 1rem 3rem -1rem rgba(0, 0, 0, 0.2);
+}
+.App .heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--Very-Light-Grayish-Blue);
+  letter-spacing: 1rem;
+  font-size: 2rem;
+}
+.App .heading h1 {
+  text-transform: uppercase;
+}
+.Todo {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-clr);
+  padding: 1.6rem;
+  justify-content: space-between;
+}
+.Todo.dragging {
+  opacity: 0.5;
+}
+.Todo input {
+  position: absolute;
+  opacity: 0;
+}
+.Todo input::placeholder {
+  color: var(--Dark-Grayish-Blue-L);
+}
+.Todo input:checked + label {
+  text-decoration: line-through;
+  color: var(--border-clr);
+  text-decoration-color: var(--utilities-clr);
+}
+.Todo .btn-remove {
+  opacity: 0;
+  transition: opacity 100ms ease;
+  transition: transform 100ms ease-in-out;
+}
+.Todo:hover .btn-remove,
+.Todo input:focus + label + .btn-remove,
+.btn-remove:focus {
+  opacity: 1;
+}
+.btn-remove:focus {
+  transform: scale(1.5);
+}
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.todo-input {
+  display: flex;
+  align-items: center;
+  padding: 1.6rem;
+  background-color: var(--bg-app);
+  border-radius: 0.4rem;
+}
+.todo-input .circle {
+  border: 1px solid var(--border-clr);
+  height: 2.4rem;
+  width: 2.4rem;
+  border-radius: 5rem;
+  margin-right: 2rem;
+}
+.todo-input input {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: inherit;
+  align-self: flex-end;
+}
+.Todo label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Todo label:hover {
+  cursor: pointer;
+}
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.4rem;
+  width: 2.4rem;
+  border-radius: 10rem;
+  margin-right: 2rem;
+  position: relative;
+  background: linear-gradient(135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+.checkbox::before {
+  content: "";
+  position: absolute;
+  border: 1px solid var(--border-clr);
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  background-color: var(--bg-app);
+  transition: transform 100ms ease-in-out;
+  box-sizing: content-box;
+}
+.Todo label:hover .checkbox::before,
+.Todo input:focus + label .checkbox::before {
+  transform: scale(0.9);
+  border: none;
+}
+
+.Todo input:checked + label .checkbox::before {
+  transform: scale(0);
+}
+.utilities {
+  display: flex;
+  align-items: center;
+  padding: 1.6rem;
+  justify-content: space-between;
+  position: relative;
+  color: var(--utilities-clr);
+  margin-bottom: 10vh;
+}
+.utilities .left-todo {
+  font-size: 1.4rem;
+}
+.utilities .navigation {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 2rem;
+}
+.utilities .navigation button {
+  font-weight: bold;
+  transition: color 100ms ease;
+  color: var(--utilities-clr);
+}
+.clear-todo button {
+  color: var(--utilities-clr);
+}
+.navigation button:hover,
+.clear-todo button:hover,
+.navigation button:focus,
+.clear-todo button:focus {
+  color: var(--nav-hover);
+}
+.navigation .active {
+  color: var(--Bright-Blue) !important;
+}
+.navigation button.active:focus {
+  color: var(--Bright-Blue);
+}
+.footer {
+  text-align: center;
+  font-size: 1.4rem;
+  display: grid;
+  grid-gap: 5rem;
+  color: var(--utilities-clr);
+  margin-bottom: 10vh;
+}
+.attribution a {
+  background-image: linear-gradient(
+    135deg,
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 300ms ease-in-out;
+}
+.attribution a:hover,
+.attribution a:focus {
+  outline: none;
+  transform: translateY(1rem);
+}
+@media screen and (max-width: 1000px) {
+  .utilities .navigation {
+    position: absolute;
+    background-color: var(--bg-app);
+    padding: 2rem;
+    width: 100%;
+    left: 0;
+    bottom: -150%;
+    border-radius: 0.4rem;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 501px) {
+  body {
+    background: var(--bg-img-mobile), var(--bg-body);
+    background-repeat: no-repeat;
+    background-size: 100vw auto;
+  }
+  .App {
+    min-width: 20rem;
+    max-width: 90vw;
+  }
+  .Todo .btn-remove {
+    opacity: 1;
+  }
+  .footer {
+    margin-top: 20vh !important;
+  }
 }
